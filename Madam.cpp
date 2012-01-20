@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.3 based on FreeDOcore
+	3DOplay sources v1.7.8 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -29,7 +29,7 @@ Felix Lazarev
 */
 
 
-#include "3doplay.h"
+#include "stdafx.h"
 #include "Madam.h"
 #include "Clio.h"
 #include "vdlp.h"
@@ -1590,6 +1590,7 @@ if(TEXEL_FUN_NUMBER==0)
 }
 else if(TEXEL_FUN_NUMBER==1)
 { 
+     sf=100000;
 	for(currentrow=0;currentrow<SPRHI;currentrow++)
 	{
 
@@ -1670,7 +1671,7 @@ else if(TEXEL_FUN_NUMBER==1)
 }
 else
 {
-speedfixes=100000;
+//speedfixes=100000;
         for(currentrow=0;currentrow<SPRHI;currentrow++)
 	{
 
@@ -1870,7 +1871,8 @@ else if(TEXEL_FUN_NUMBER==1)
 			if(!Transparent)
 			{
 int sss=VDX1616;
-//if ((CURPIX>35000&&CURPIX<37000)||(CURPIX>38000&&CURPIX<45000)||(CURPIX>60000&&CURPIX<70000)) sss-=1;//w 18 
+//if ((CURPIX>35000&&CURPIX<37000)||(CURPIX>38000&&CURPIX<45000)||(CURPIX>60000&&CURPIX<70000)) sss-=1;
+//if((j<5)&&((CURPIX>38000&&CURPIX<70000)||(CURPIX>35000&&CURPIX<37000)))sss-=1;//w18
 					if(TexelDraw_Scale(CURPIX, LAMV, xcur>>16, ycur>>16, (xcur+HDX1616+sss)>>16, (ycur+HDY1616+VDY1616)>>16))break;
 
 			}
@@ -1936,7 +1938,7 @@ else speedfixes=-100000;}
 }
 
 void __fastcall DrawLRCel_New()
-{//doom fix
+{
 	int i,j,xcur,ycur,xvert,yvert,xdown,ydown,hdx,hdy;
  	unsigned short CURPIX,LAMV;
 
@@ -1948,7 +1950,7 @@ void __fastcall DrawLRCel_New()
 	offset+=2;
 
 	SPRWI=1+(PRE1&PRE1_TLHPCNT_MASK);
-	SPRHI=(((PRE0&PRE0_VCNT_MASK)>>PRE0_VCNT_SHIFT)<<1)+2;
+	SPRHI=(((PRE0&PRE0_VCNT_MASK)>>PRE0_VCNT_SHIFT)<<1)+2; //doom fix
 
 	if(TestInitVisual(0))return;
 	xvert=XPOS1616;

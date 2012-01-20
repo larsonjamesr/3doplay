@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.3 based on FreeDOcore
+	3DOplay sources v1.7.8 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -29,7 +29,7 @@ Felix Lazarev
 */
 
 
-#include "3doplay.h"
+#include "stdafx.h"
 #include "Clio.h"
 #include "Madam.h"
 #include "xbus.h"
@@ -588,7 +588,7 @@ void __fastcall _clio_DoTimers()
                                 {
                                                 if((timer&1))   // Only odd timers can generate
 						{  // generate the interrupts because be overflow
-						   _clio_GenerateFiq(1<<(10-timer/2),0);
+		  				 _clio_GenerateFiq(1<<(10-timer/2),0);
 						}
 						if(flag&RELOAD)
 						{  // reload timer by reload value

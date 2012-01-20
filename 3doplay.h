@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.3 based on FreeDOcore
+	3DOplay sources v1.7.8 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -34,10 +34,6 @@ Felix Lazarev
 
 //------------------------------------------------------------------------------
 #pragma pack(push,1)
-
-extern bool __temporalfixes;
-extern int speedfixes;
-extern int HightResMode;
 
 struct VDLLine
 //VDLP Line - линия отрисовки со всем необходимыми данными согласно патенту VDLP
@@ -92,18 +88,18 @@ typedef void* (*_ext_Interface)(int, void*);
 #define FDP_GETP_WRCOUNT        16
 
 
-#ifdef THREEDOCORE_EXPORTS
-#define THREEDOCORE_API __declspec(dllexport)
+#ifdef FREEDOCORE_EXPORTS
+#define FREEDOCORE_API __declspec(dllimport)
 #else
-#define THREEDOCORE_API __declspec(dllimport)
+#define FREEDOCORE_API __declspec(dllexport)
 #endif
 
 extern "C"
 {
-        THREEDOCORE_API void* _3doplayInterface(int procedure, void *datum=0);
+        FREEDOCORE_API void* A3doplayInterface(int procedure, void *datum=0);
 };
 
-#ifndef THREEDOCORE_EXPORTS
+#ifndef FREEDOCORE_EXPORTS
 #pragma comment(lib, "3doplaysys.lib")
 #endif
 //------------------------------------------------------------------------------

@@ -1,8 +1,9 @@
 /*
-	3DOplay sources v1.7.3 based on FreeDOcore
+	3DOplay sources v1.7.8 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
+All rights reserved.
 */
 /*
   www.freedo.org
@@ -31,7 +32,7 @@ Felix Lazarev
 #define FREEDOCONFIG_H
 
 #ifdef __MSVC__
-#include <3doplay.h>
+#include <stdafx.h>
 #include <windows.h>
 #else
 #include <stdlib.h>
@@ -42,7 +43,7 @@ Felix Lazarev
 
 
 extern bool __temporalfixes;
-extern int speedfixes;
+extern int speedfixes, sf;
 extern int HightResMode;
 #define DEBUG_CORE
 #define _T(a) (a)
