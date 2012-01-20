@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.3 based on FreeDOcore
+	3DOplay sources v1.7.8 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -53,7 +53,7 @@ Felix Lazarev
 	void __fastcall _clio_GenerateFiq(unsigned int reason1, unsigned int reason2);
 
 	unsigned int _clio_GetTimerDelay();
-
+void __fastcall _clio_setcycles();
         unsigned int _clio_SaveSize();
         void _clio_Save(void *buff);
         void _clio_Load(void *buff);

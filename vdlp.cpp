@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.3 based on FreeDOcore
+	3DOplay sources v1.7.8 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -28,7 +28,7 @@ John Sammons
 Felix Lazarev
 */
 
-#include "3doplay.h"
+#include "stdafx.h"
 #include "VDLP.h"
 #include "arm.h"
 #include <memory.h>
@@ -188,17 +188,19 @@ __inline void VDLExec()
                  // CURRENTVDL-=4;
                  CURRENTVDL+=4;
 
-				        if(!(cmd&0x80)||!(cmd&0x80000000))
-					{	//color value
-
-						unsigned int coloridx=(cmd&VDL_PEN_MASK)>>VDL_PEN_SHIFT;
+				        if(!(cmd&0x80000000)||!(cmd&0x80))
+					{
+						unsigned int coloridx=(cmd&VDL_PEN_MASK)>>VDL_PEN_SHIFT; 
 						if((cmd&VDL_RGBCTL_MASK)==VDL_FULLRGB)
-						{
-                                                            
-							CLUTR[coloridx]=(cmd&VDL_R_MASK)>>VDL_R_SHIFT;
-							CLUTG[coloridx]=(cmd&VDL_G_MASK)>>VDL_G_SHIFT;
-							CLUTB[coloridx]=(cmd&VDL_B_MASK)>>VDL_B_SHIFT;
-						}
+						{                 
+							int cb,cg,cr;
+							cb=CLUTB[coloridx];
+							cg=CLUTG[coloridx];
+							cr=CLUTR[coloridx];
+						 if(((cmd&VDL_B_MASK)>>VDL_B_SHIFT)>((cmd&VDL_G_MASK)>>VDL_G_SHIFT)) CLUTB[coloridx]=cg; else CLUTG[coloridx]=cb;
+						  if(((cmd&VDL_R_MASK)>>VDL_R_SHIFT)>((cmd&VDL_B_MASK)>>VDL_B_SHIFT)) CLUTR[coloridx]=cb; //else CLUTB[coloridx]=cr;
+						if(((cmd&VDL_G_MASK)>>VDL_G_SHIFT)>((cmd&VDL_R_MASK)>>VDL_R_SHIFT)) CLUTG[coloridx]=cr; else CLUTR[coloridx]=cg;
+                        }
 						else if(cmd&VDL_RGBCTL_MASK==VDL_REDONLY)
 							CLUTR[coloridx]=(cmd&VDL_R_MASK)>>VDL_R_SHIFT;
 						else if(cmd&VDL_RGBCTL_MASK==VDL_GREENONLY)
@@ -206,7 +208,7 @@ __inline void VDLExec()
 						else if(cmd&VDL_RGBCTL_MASK==VDL_BLUEONLY)
 							CLUTB[coloridx]=(cmd&VDL_B_MASK)>>VDL_B_SHIFT;
 					}
-					else if((cmd&0xff000000)==VDL_BACKGROUND)
+					else if(!(cmd&0xff000000)==VDL_BACKGROUND)
 					{
                                                 if(ifgnorflag)continue;
                 			        BACKGROUND=((     cmd&0xFF    )<<16)|
