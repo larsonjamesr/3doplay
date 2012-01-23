@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.8 based on FreeDOcore
+	3DOplay sources v1.7.9 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -150,7 +150,7 @@ if(ARM_CLOCK>30000000)ARM_CLOCK=30000000;
  else if(speedfixes<0) {sp=4500000; speedfixes++;}
  //if(sp!=0&&HightResMode!=0) sp+=2000000;
 // else if(speedfixes==100001) {sp=0; speedfixes=0;}
- if(_clio_GetTimerDelay()==0x150&&sf==0) sp=-23000000; 
+ if(_clio_GetTimerDelay()==0x150&&sf==0) sp=-18000000; 
         arm=(clks<<24)/(ARM_CLOCK-sp);
         qrz_AccARM+=arm*ARM_CLOCK;
         if( (qrz_AccARM>>24) != clks )

@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.8 based on FreeDOcore
+	3DOplay sources v1.7.9 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -193,6 +193,9 @@ __inline void VDLExec()
 						unsigned int coloridx=(cmd&VDL_PEN_MASK)>>VDL_PEN_SHIFT; 
 						if((cmd&VDL_RGBCTL_MASK)==VDL_FULLRGB)
 						{                 
+							CLUTR[coloridx]=(cmd&VDL_R_MASK)>>VDL_R_SHIFT;
+							CLUTG[coloridx]=(cmd&VDL_G_MASK)>>VDL_G_SHIFT;
+							CLUTB[coloridx]=(cmd&VDL_B_MASK)>>VDL_B_SHIFT;
 							int cb,cg,cr;
 							cb=CLUTB[coloridx];
 							cg=CLUTG[coloridx];

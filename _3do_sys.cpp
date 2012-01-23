@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.8 based on FreeDOcore
+	3DOplay sources v1.7.9 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -106,12 +106,10 @@ F1	REVISION TEST
 FF	TEST END (halt)
 */
         _xbus_DevLoad(0,NULL);
-
         _qrz_Init();
-
         return 0;
 }
-
+   
 
 VDLFrame *curr_frame;
 bool scipframe;
@@ -146,10 +144,9 @@ void _3do_InternalFrame(int cicles)
 
                 }
 }
-//int bc=0;
+
 void __fastcall _3do_Frame(VDLFrame *frame, bool __scipframe=false)
 {
-   //  if(bc==0){WinExec( "3doplays.exe", 1); bc=1;}
 int i,line,cnt=0;
 
         curr_frame=frame;
@@ -266,13 +263,14 @@ int HightResMode=0;
 bool __temporalfixes=false;
 int speedfixes=0;
 int sf=0;
+int sdf=0;
 
 FREEDOCORE_API void* A3doplayInterface(int procedure, void *datum)
 {
 int line;
         switch(procedure)
         {
-         case FDP_INIT:
+         case FDP_INIT:  
                 io_interface=(_ext_Interface)datum;
                 return (void*)_3do_Init();
          case FDP_DESTROY:
@@ -306,7 +304,7 @@ int line;
          case FDP_GETP_PROFILE:
                 return profiling;
          case FDP_FREEDOCORE_VERSION:
-                return (void*)0x10708;
+                return (void*)0x10709;
          case FDP_SET_ARMCLOCK:
                 ARM_CLOCK=(int)datum;
                 break;
