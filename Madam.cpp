@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.7.8 based on FreeDOcore
+	3DOplay sources v1.7.9 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -1436,7 +1436,7 @@ unsigned int * _madam_GetRegs()
 
 void __fastcall DrawPackedCel_New()
 {
-
+     sf=100000;
 	unsigned int start;
 	unsigned short CURPIX,LAMV;
 	int i,j;
@@ -1590,7 +1590,7 @@ if(TEXEL_FUN_NUMBER==0)
 }
 else if(TEXEL_FUN_NUMBER==1)
 { 
-     sf=100000;
+   //       sf=100000;
 	for(currentrow=0;currentrow<SPRHI;currentrow++)
 	{
 
@@ -1780,6 +1780,7 @@ else
 
 void __fastcall DrawLiteralCel_New()
 {
+     sf=100000;
 	int i,j,xcur,ycur,xvert,yvert,xdown,ydown,hdx,hdy,pix_repit,scipstr;
  	unsigned short CURPIX,LAMV;
 	int get1,get2;
@@ -1939,6 +1940,7 @@ else speedfixes=-100000;}
 
 void __fastcall DrawLRCel_New()
 {
+     sf=100000;     
 	int i,j,xcur,ycur,xvert,yvert,xdown,ydown,hdx,hdy;
  	unsigned short CURPIX,LAMV;
 
