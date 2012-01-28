@@ -1,9 +1,9 @@
 /*
-	3DOplay sources v1.7.9 based on FreeDOcore
+	3DOplay sources v1.8 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
-All rights reserved.
+    All rights reserved.
 */
 /*
   www.freedo.org
@@ -40,7 +40,7 @@ Felix Lazarev
 #include "bitop.h"
 BitReaderBig bitoper;
 
-#include "3doplay.h"
+#include "freedocore.h"
 
 extern _ext_Interface  io_interface;
 
@@ -1671,7 +1671,7 @@ else if(TEXEL_FUN_NUMBER==1)
 }
 else
 {
-//speedfixes=100000;
+   if(speedfixes>=0) speedfixes=100000;
         for(currentrow=0;currentrow<SPRHI;currentrow++)
 	{
 
@@ -1806,7 +1806,7 @@ void __fastcall DrawLiteralCel_New()
 
 if(TEXEL_FUN_NUMBER==0)
 {
-                   //    speedfixes=100000;
+                       //speedfixes=100000;
         //רנטפעû NFS
         SPRWI-=((PRE0>>24)&0xf);
 	xvert+=TEXTURE_HI_START*VDX1616;
