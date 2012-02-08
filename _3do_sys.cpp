@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8 based on FreeDOcore
+	3DOplay sources v1.8.1 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -271,7 +271,7 @@ int line;
         switch(procedure)
         {
          case FDP_INIT:  
-                sf=2000000;
+              sf=0x2DC6C0;
                 io_interface=(_ext_Interface)datum;
                 return (void*)_3do_Init();
          case FDP_DESTROY:
@@ -305,7 +305,7 @@ int line;
          case FDP_GETP_PROFILE:
                 return profiling;
          case FDP_FREEDOCORE_VERSION:
-                return (void*)0x10800;
+                return (void*)0x10801;
          case FDP_SET_ARMCLOCK:
                 ARM_CLOCK=(int)datum;
                 break;
