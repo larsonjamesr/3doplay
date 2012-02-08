@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8 based on FreeDOcore
+	3DOplay sources v1.8.1 based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -40,7 +40,7 @@ Felix Lazarev
 #include "bitop.h"
 BitReaderBig bitoper;
 
-#include "freedocore.h"
+#include "3doplay.h"
 
 extern _ext_Interface  io_interface;
 
@@ -1435,7 +1435,7 @@ unsigned int * _madam_GetRegs()
 
 
 void __fastcall DrawPackedCel_New()
-{
+{     
      sf=100000;
 	unsigned int start;
 	unsigned short CURPIX,LAMV;
@@ -1539,6 +1539,7 @@ if(TEXEL_FUN_NUMBER==0)
 					eor=1;
 					break;
 				case 1: //PACK_LITERAL
+								if(speedfixes>=0&&sdf==0&&speedfixes<=0x30D41)speedfixes=0x30D40;
 					for(pix=0;pix<pixcount;pix++)
 					{
 						//CURPIX=PDEC(bitoper.Read(bpp),&LAMV);
@@ -1558,7 +1559,6 @@ if(TEXEL_FUN_NUMBER==0)
 
 					break;
 				case 2: //PACK_TRANSPARENT
-
 					//	calcx+=(pixcount+1);
 
 					if(HDX1616)xcur+=HDX1616*(pixcount);
@@ -1566,8 +1566,6 @@ if(TEXEL_FUN_NUMBER==0)
 
 					break;
 				case 3: //PACK_REPEAT
-
-					//CURPIX=PDEC(bitoper.Read(bpp),&LAMV);
 					CURPIX=PDEC(bitoper.Read(bpp),&LAMV);
 
 					if(!Transparent)
@@ -1590,7 +1588,6 @@ if(TEXEL_FUN_NUMBER==0)
 }
 else if(TEXEL_FUN_NUMBER==1)
 { 
-   //       sf=100000;
 	for(currentrow=0;currentrow<SPRHI;currentrow++)
 	{
 
@@ -1670,8 +1667,8 @@ else if(TEXEL_FUN_NUMBER==1)
 
 }
 else
-{
-   if(speedfixes>=0) speedfixes=100000;
+{    
+  if(speedfixes>=0&&speedfixes<=0x186A1) speedfixes=0x186A0;
         for(currentrow=0;currentrow<SPRHI;currentrow++)
 	{
 
@@ -1730,7 +1727,7 @@ else
                                         //pixcount=0;
 					break;
 				case 2: //PACK_TRANSPARENT
-
+                    if(speedfixes>=0&&sdf>0/*&&speedfixes<=100001*/)    speedfixes=0x493E0;
 					//	calcx+=(pixcount+1);
 					xcur+=hdx*(__pix);
 					ycur+=hdy*(__pix);
@@ -1741,6 +1738,7 @@ else
 					break;
 				case 3: //PACK_REPEAT
 					CURPIX=PDEC(bitoper.Read(bpp),&LAMV);
+					if(speedfixes>=0&&speedfixes<0x30D41&&((CURPIX>0x2710&&CURPIX<0x2AF8)&&sdf==0))speedfixes=0x30D40;
 					if(!Transparent)
 					{
 							while(__pix)
@@ -1806,7 +1804,7 @@ void __fastcall DrawLiteralCel_New()
 
 if(TEXEL_FUN_NUMBER==0)
 {
-                       //speedfixes=100000;
+                  sdf=100000;
         //רנטפעû NFS
         SPRWI-=((PRE0>>24)&0xf);
 	xvert+=TEXTURE_HI_START*VDX1616;
@@ -1872,9 +1870,8 @@ else if(TEXEL_FUN_NUMBER==1)
 			if(!Transparent)
 			{
 int sss=VDX1616;
-//if ((CURPIX>35000&&CURPIX<37000)||(CURPIX>38000&&CURPIX<45000)||(CURPIX>60000&&CURPIX<70000)) sss-=1;
-//if((j<5)&&((CURPIX>38000&&CURPIX<70000)||(CURPIX>35000&&CURPIX<37000)))sss-=1;//w18
-					if(TexelDraw_Scale(CURPIX, LAMV, xcur>>16, ycur>>16, (xcur+HDX1616+sss)>>16, (ycur+HDY1616+VDY1616)>>16))break;
+//if(dsp==0&&((CURPIX>38000&&CURPIX<70000)||(CURPIX>35000&&CURPIX<37000)))sss-=1;//w18
+                	if(TexelDraw_Scale(CURPIX, LAMV, xcur>>16, ycur>>16, (xcur+HDX1616+sss)>>16, (ycur+HDY1616+VDY1616)>>16))break;
 
 			}
 			xcur+=HDX1616;
@@ -1918,9 +1915,9 @@ else
 			if(!Transparent)
 			{
 					if(TexelDraw_Arbitrary(CURPIX, LAMV, xcur, ycur, xcur+hdx, ycur+hdy, xdown+HDX1616, ydown+HDY1616, xdown, ydown))break;
-if(speedfixes<1){
+if(speedfixes<=0||(speedfixes>=0&&speedfixes<0x30D41)){
 if (CURPIX>30000&&CURPIX<40000)speedfixes=0;
-else speedfixes=-100000;}
+else speedfixes=-0x186A0;}
 			}
 			xcur+=hdx;
 			ycur+=hdy;
@@ -1952,7 +1949,7 @@ void __fastcall DrawLRCel_New()
 	offset+=2;
 
 	SPRWI=1+(PRE1&PRE1_TLHPCNT_MASK);
-	SPRHI=(((PRE0&PRE0_VCNT_MASK)>>PRE0_VCNT_SHIFT)<<1)+2; //doom fix
+	SPRHI=(((PRE0&PRE0_VCNT_MASK)>>PRE0_VCNT_SHIFT)<<1)+2; 
 
 	if(TestInitVisual(0))return;
 	xvert=XPOS1616;
