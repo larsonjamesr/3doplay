@@ -33,7 +33,7 @@ Felix Lazarev
 #include "arm.h"
 #include <memory.h>
 
-#include "freedocore.h"
+#include "3doplay.h"
 
 extern _ext_Interface  io_interface;
 
