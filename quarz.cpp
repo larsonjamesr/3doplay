@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8.1 based on FreeDOcore
+	3DOplay v1.8.2 is 3do emulator based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -145,15 +145,16 @@ void __fastcall _qrz_PushARMCycles(unsigned int clks)
  int sp=0;
 if(sdf>0) sdf--;
 if(sf>0) sf--;
+if(unknownflag11>0)unknownflag11--;
 if(ARM_CLOCK<0x7A1200)ARM_CLOCK=0x7A1200;
 if(ARM_CLOCK>0x1C9C380)ARM_CLOCK=0x1C9C380;
- if(speedfixes>0&&speedfixes<0x186A1) {sp=0x493E0; speedfixes--;}
+ if(speedfixes>0&&speedfixes<0x186A1) {sp=0x2DC6C0; speedfixes--;}
  else if(speedfixes>0x186A1&&speedfixes<0x30D41) {if(sdf==0)sp=0x6ACFC0; speedfixes--;}
  else if(speedfixes<0) {sp=0x3D0900; speedfixes++;}
  else if(speedfixes>0x30D41) {sp=0x30D400; speedfixes--;}//0x3567E0
  else if(speedfixes==0x30D41||speedfixes==0x186A1) speedfixes=0;
- if(_clio_GetTimerDelay()==0x150&&sf==0) sp=-0x1406F40; 
- if(sf>0x186A0)sp=12500000-ARM_CLOCK;
+ if(_clio_GetTimerDelay()==0x150&&sf==0) sp=-(0x1C9C380-ARM_CLOCK);
+ if(sf>0x186A0)sp=-(12500000-ARM_CLOCK);
  if((ARM_CLOCK-sp)<0x2DC6C0)sp=-(0x2DC6C0-ARM_CLOCK);
         arm=(clks<<24)/(ARM_CLOCK-sp);
         qrz_AccARM+=arm*ARM_CLOCK;

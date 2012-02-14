@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8.1 based on FreeDOcore
+	3DOplay v1.8.2 is 3do emulator based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -263,7 +263,7 @@ int HightResMode=0;
 bool __temporalfixes=false;
 int speedfixes=0;
 int sf=0;
-int sdf=0;
+int sdf=0, unknownflag11=0;
 
 FREEDOCORE_API void* A3doplayInterface(int procedure, void *datum)
 {
@@ -271,7 +271,7 @@ int line;
         switch(procedure)
         {
          case FDP_INIT:  
-              sf=0x2DC6C0;
+              sf=0x4C4B40;
                 io_interface=(_ext_Interface)datum;
                 return (void*)_3do_Init();
          case FDP_DESTROY:
@@ -305,7 +305,7 @@ int line;
          case FDP_GETP_PROFILE:
                 return profiling;
          case FDP_FREEDOCORE_VERSION:
-                return (void*)0x10801;
+                return (void*)0x10802;
          case FDP_SET_ARMCLOCK:
                 ARM_CLOCK=(int)datum;
                 break;

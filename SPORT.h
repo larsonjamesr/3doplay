@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8.1 based on FreeDOcore
+	3DOplay v1.8.2 is 3do emulator based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.

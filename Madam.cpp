@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8.1 based on FreeDOcore
+	3DOplay v1.8.2 is 3do emulator based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -1539,12 +1539,10 @@ if(TEXEL_FUN_NUMBER==0)
 					eor=1;
 					break;
 				case 1: //PACK_LITERAL
-								if(speedfixes>=0&&sdf==0&&speedfixes<=0x30D41)speedfixes=0x30D40;
 					for(pix=0;pix<pixcount;pix++)
 					{
 						//CURPIX=PDEC(bitoper.Read(bpp),&LAMV);
 						CURPIX=PDEC(bitoper.Read(bpp),&LAMV);
-
 						if(!Transparent)
 						{
 
@@ -1560,14 +1558,15 @@ if(TEXEL_FUN_NUMBER==0)
 					break;
 				case 2: //PACK_TRANSPARENT
 					//	calcx+=(pixcount+1);
-
 					if(HDX1616)xcur+=HDX1616*(pixcount);
 					if(HDY1616)ycur+=HDY1616*(pixcount);
 
 					break;
 				case 3: //PACK_REPEAT
 					CURPIX=PDEC(bitoper.Read(bpp),&LAMV);
-
+         if(CURPIX>32300&&CURPIX<33500&&(CURPIX>32760||CURPIX<32750)){
+          if(speedfixes>=0&&sdf==0&&speedfixes<=0x30D41&&unknownflag11==0)speedfixes=0x30D40;}
+          if(unknownflag11>0&&sdf==0&&CURPIX<30000&&CURPIX>29000) speedfixes=-0x30D40;
 					if(!Transparent)
 					{
 
@@ -1588,6 +1587,7 @@ if(TEXEL_FUN_NUMBER==0)
 }
 else if(TEXEL_FUN_NUMBER==1)
 { 
+     unknownflag11=100000;
 	for(currentrow=0;currentrow<SPRHI;currentrow++)
 	{
 
@@ -1617,7 +1617,6 @@ else if(TEXEL_FUN_NUMBER==1)
 					eor=1;
 					break;
 				case 1: //PACK_LITERAL
-
 					while(__pix)
 					{
                                                 __pix--;
@@ -1636,7 +1635,6 @@ else if(TEXEL_FUN_NUMBER==1)
 
 					break;
 				case 2: //PACK_TRANSPARENT
-
 					//	calcx+=(pixcount+1);
 					xcur+=HDX1616*(__pix);
 					ycur+=HDY1616*(__pix);
@@ -1804,7 +1802,7 @@ void __fastcall DrawLiteralCel_New()
 
 if(TEXEL_FUN_NUMBER==0)
 {
-                  sdf=100000;
+                  sdf=0x186A0;
         //רנטפעû NFS
         SPRWI-=((PRE0>>24)&0xf);
 	xvert+=TEXTURE_HI_START*VDX1616;
@@ -1870,7 +1868,7 @@ else if(TEXEL_FUN_NUMBER==1)
 			if(!Transparent)
 			{
 int sss=VDX1616;
-//if(dsp==0&&((CURPIX>38000&&CURPIX<70000)||(CURPIX>35000&&CURPIX<37000)))sss-=1;//w18
+if(unknownflag11==0&&speedfixes>=100000&&speedfixes<=200000&&(CURPIX<31000||CURPIX>32000)&&(CURPIX<15000||CURPIX>24000)&&(CURPIX<25000||CURPIX>28000)&&((CURPIX>38000&&CURPIX<70000)||(CURPIX>15000&&CURPIX<37000)))sss-=1;
                 	if(TexelDraw_Scale(CURPIX, LAMV, xcur>>16, ycur>>16, (xcur+HDX1616+sss)>>16, (ycur+HDY1616+VDY1616)>>16))break;
 
 			}
@@ -1915,7 +1913,7 @@ else
 			if(!Transparent)
 			{
 					if(TexelDraw_Arbitrary(CURPIX, LAMV, xcur, ycur, xcur+hdx, ycur+hdy, xdown+HDX1616, ydown+HDY1616, xdown, ydown))break;
-if(speedfixes<=0||(speedfixes>=0&&speedfixes<0x30D41)){
+if(speedfixes<1||(speedfixes>=0&&speedfixes<0x30D41)){
 if (CURPIX>30000&&CURPIX<40000)speedfixes=0;
 else speedfixes=-0x186A0;}
 			}

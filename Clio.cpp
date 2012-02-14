@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8.1 based on FreeDOcore
+	3DOplay v1.8.2 is 3do emulator based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -144,7 +144,7 @@ void __fastcall _clio_GenerateFiq(unsigned int reason1, unsigned int reason2)
 /////////////
 }
 
-#include "3doplay.h"
+#include "freedocore.h"
 extern _ext_Interface  io_interface;
 //extern AString str;
 void __fastcall _clio_SetTimers(uint32 v200, uint32 v208);

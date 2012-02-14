@@ -1,5 +1,5 @@
 /*
-	3DOplay sources v1.8.1 based on FreeDOcore
+	3DOplay v1.8.2 is 3do emulator based on FreeDOcore
 	3doplay.do.am
 	Developer: Viktor Ivanov
 	Any uses of the 3DOplay sources or any other material published by Viktor Ivanov have to be accompanied with full credits.
@@ -33,7 +33,7 @@ Felix Lazarev
 #include "arm.h"
 #include <memory.h>
 
-#include "3doplay.h"
+#include "freedocore.h"
 
 extern _ext_Interface  io_interface;
 
@@ -185,11 +185,11 @@ __inline void VDLExec()
                    
 				int cmd=vmreadw(CURRENTVDL);
 
-                //  if(CURRENTVDL>3000000&&CURRENTVDL<3130000) CURRENTVDL-=4; 
+                //  if(CURRENTVDL>0x2DC6C0&&CURRENTVDL<0x2FC290) CURRENTVDL-=4; 
                   //else
                   CURRENTVDL+=4;
 
-				        if(!(cmd&0x80000000)||!(cmd&0x80))
+				        if(!(cmd&0x80000000)/*||!(cmd&0x80)*/)
 					{
 					
 						unsigned int coloridx=(cmd&VDL_PEN_MASK)>>VDL_PEN_SHIFT; 
@@ -197,15 +197,7 @@ __inline void VDLExec()
 						{                 
 							CLUTR[coloridx]=((cmd&VDL_R_MASK)>>VDL_R_SHIFT);
 							CLUTG[coloridx]=((cmd&VDL_G_MASK)>>VDL_G_SHIFT);
-							CLUTB[coloridx]=((cmd&VDL_B_MASK)>>VDL_B_SHIFT);
-						//	int cb,cg,cr;
-						//	cb=CLUTB[coloridx];
-							//cg=CLUTG[coloridx];
-						//	cr=CLUTR[coloridx];
-						 //if(((cmd&VDL_B_MASK)>>VDL_B_SHIFT)>((cmd&VDL_G_MASK)>>VDL_G_SHIFT)) CLUTB[coloridx]=cg; else CLUTG[coloridx]=cb;
-						  //if(((cmd&VDL_R_MASK)>>VDL_R_SHIFT)>((cmd&VDL_B_MASK)>>VDL_B_SHIFT)) CLUTR[coloridx]=cb; //else CLUTB[coloridx]=cr;
-						//if(((cmd&VDL_G_MASK)>>VDL_G_SHIFT)>((cmd&VDL_R_MASK)>>VDL_R_SHIFT)) CLUTG[coloridx]=cr; else CLUTR[coloridx]=cg;
-                        }
+							CLUTB[coloridx]=((cmd&VDL_B_MASK)>>VDL_B_SHIFT); }
 						else if(cmd&VDL_RGBCTL_MASK==VDL_REDONLY)
 							CLUTR[coloridx]=(cmd&VDL_R_MASK)>>VDL_R_SHIFT;
 						else if(cmd&VDL_RGBCTL_MASK==VDL_GREENONLY)
